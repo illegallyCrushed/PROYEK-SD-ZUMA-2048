@@ -5,3 +5,11 @@
 *.log
 *.tlog
 *.lastbuildstate
+*.exe
+*.ilk
+*.obj
+*.idb
+*.recipe
+*.ipch
+*.db
+.vs/PROYEK SD/v16/.suo
