@@ -12,7 +12,7 @@
 *.recipe
 *.ipch
 *.db
-.vs/PROYEK SD/v16/.suo
+*.suo
 *.opendb
 *.db-shm
 *.db-wal
