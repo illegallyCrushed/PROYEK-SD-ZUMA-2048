@@ -3,7 +3,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "Ini Window", sf::Style::Titlebar | sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Zuma 2048", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
