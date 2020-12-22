@@ -49,7 +49,7 @@ int main()
 	{
 		deltaTime = clock.restart().asSeconds();
 		mouseClicked = false;
-		window.clear();
+		window.clear(sf::Color(30, 30, 30));
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
