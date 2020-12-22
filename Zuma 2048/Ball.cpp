@@ -1,14 +1,28 @@
 #include "Ball.h"
 
-Ball::Ball()
+Ball::Ball(sf::Font& font, sf::Vector2f position, float radius, int powernumber)
 {
-	sf::Color colors[4] = { sf::Color::Red, sf::Color::Green, sf::Color::Blue, sf::Color::Yellow };
-	position.x = WINDOW_WIDTH / 2;
-	position.y = WINDOW_HEIGHT / 6;
-	circle.setRadius(25.0f);
-	circle.setFillColor(colors[rand()%4]);
-	circle.setPosition(position);
+	sf::Color colors[4] = { sf::Color::Red, sf::Color::Green, sf::Color::Cyan, sf::Color::Yellow };
+
+	color = rand() % 4;
+	number = std::pow(2, (1 + (rand() % (powernumber - 1))));;
+
+	this->position = position;
+	circle.setRadius(radius);
+	circle.setFillColor(colors[color]);
 	circle.setOrigin(circle.getRadius() / 2, circle.getRadius() / 2);
+	circle.setPosition(position);
+
+	textnum.setFont(font);
+	textnum.setString(std::to_string(number));
+	textnum.setFillColor(sf::Color::Black);
+	textnum.setCharacterSize(30);
+	textnum.setOrigin((textnum.getLocalBounds().width / 2.0f) - 11, (textnum.getLocalBounds().height / 2.0f) - 3.5);
+	if (number >= 1024) {
+		textnum.setCharacterSize(20);
+		textnum.setOrigin((textnum.getLocalBounds().width / 2.0f) - 11, (textnum.getLocalBounds().height / 2.0f) - 6);
+	}
+	textnum.setPosition(position);
 }
 
 void Ball::update(float deltaTime)
@@ -18,4 +32,5 @@ void Ball::update(float deltaTime)
 void Ball::draw(sf::RenderWindow& window)
 {
 	window.draw(circle);
+	window.draw(textnum);
 }
