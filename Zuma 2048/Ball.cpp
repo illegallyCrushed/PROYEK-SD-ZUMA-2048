@@ -64,3 +64,23 @@ void Ball::setPositionIndex(int index)
 {
 	posIndex = index;
 }
+
+Ball* Ball::GetNext()
+{
+	return Next;
+}
+
+void Ball::SetNext(Ball *ball)
+{
+	Next = ball;
+}
+
+void Ball::SetNumber(int n)
+{
+	number = n;
+}
+
+int Ball::GetNumber()
+{
+	return number;
+}

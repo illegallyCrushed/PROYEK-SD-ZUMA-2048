@@ -11,6 +11,11 @@ public:
 	float getPositionX();
 	int getPositionIndex();
 	void setPositionIndex(int index);
+	Ball *GetNext();
+	void SetNext(Ball *ball);
+	void SetNumber(int n);
+	int GetNumber();
+
 private:
 	sf::Vector2f newposition;
 	sf::CircleShape circle;
@@ -20,4 +25,5 @@ private:
 	int power;
 	int posIndex;
 	float speed;
+	Ball* Next;
 };

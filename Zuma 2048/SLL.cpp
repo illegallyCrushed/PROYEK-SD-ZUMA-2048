@@ -1,48 +1,19 @@
 #include "SLL.h"
 
-Node::Node(int data, string color) {
-	Data = data; Color = color; Next = NULL;
-}
-
-void Node::SetData(int data)
-{
-	Data = data;
-}
-
-void Node::SetColor(string color)
-{
-	Color = color;
-}
-
-void Node::SetNext(Node* next)
-{
-	Next = next;
-}
-
-int Node::GetData()
-{
-	return Data;
-}
-
-string Node::GetColor()
-{
-	return Color;
-}
-
-Node* Node::GetNext()
-{
-	return Next;
-}
-
 SLL::SLL()
 {
 	Head = Tail = NULL;
 	Size = 0;
 }
 
-Node* SLL::GetHead()
+Ball* SLL::GetHead()
 {
 	return Head;
+}
+
+Ball* SLL::GetTail()
+{
+	return Tail;
 }
 
 int SLL::GetSize()
@@ -50,30 +21,20 @@ int SLL::GetSize()
 	return Size;
 }
 
-void SLL::AddFront(int n, string color)
+void SLL::AddFront(Ball *ball)
 {
-	if (Size == MaxSize)
-		return;
-
-    Node* temp = new Node;
-    temp->SetData(n);
-	temp->SetColor(color);
+	Ball* temp = ball;
     temp->SetNext(Head);
     Head = temp;
 	Size++;
 }
 
-void SLL::AddMiddle(int index, int n, string color)
+void SLL::AddMiddle(int index, Ball *ball)
 {
-	if (Size == MaxSize)
-		return;
-
-	Node* temp = new Node;
-	temp->SetData(n);
-	temp->SetColor(color);
+	Ball* temp = ball;
 	temp->SetNext(NULL);
 
-	Node* iteration = Head;
+	Ball* iteration = Head;
 
 	for (int i = 0; i < index; i++)
 		iteration = iteration->GetNext();
@@ -83,14 +44,9 @@ void SLL::AddMiddle(int index, int n, string color)
 	Size++;
 }
 
-void SLL::AddBack(int n, string color)
+void SLL::AddBack(Ball *ball)
 {
-	if (Size == MaxSize)
-		return;
-
-	Node* temp = new Node;
-	temp->SetData(n);
-	temp->SetColor(color);
+	Ball* temp = ball;
 	temp->SetNext(NULL);
 
 	if (Head == NULL) {
@@ -109,7 +65,7 @@ void SLL::Delete(int index)
 	if (index >= Size)
 		return;
 
-	Node* temp = Head;
+	Ball* temp = Head;
 
 	if (index == 0) {
 		temp = temp->GetNext();
@@ -135,12 +91,12 @@ void SLL::Edit(int index, int n)
 	if (index >= Size)
 		return;
 
-	Node* iteration = Head;
+	Ball* iteration = Head;
 
 	for (int i = 0; i < index; i++)
 		iteration = iteration->GetNext();
 
-	iteration->SetData(n);
+	iteration->SetNumber(n);
 }
 
 void SLL::DeleteCombo(int start, int end)
@@ -150,4 +106,13 @@ void SLL::DeleteCombo(int start, int end)
 
 	for (int i = start; i <= end; i++)
 		Delete(i);
+}
+
+Ball* SLL::GetBall(int index)
+{
+	Ball* iteration = Head;
+	for (int i = 0; i < index; i++) {
+		iteration = iteration->GetNext();
+	}
+	return iteration;
 }
