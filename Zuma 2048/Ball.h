@@ -6,7 +6,7 @@ class Ball
 public:
 	Ball(sf::Font &font, sf::Vector2f position, float speed, float radius, int powernumber);
 	void moveTo(sf::Vector2f newposition);
-	void update(float deltaTime);
+	void update();
 	void draw(sf::RenderWindow &window);
 	float getPositionX();
 	int getPositionIndex();

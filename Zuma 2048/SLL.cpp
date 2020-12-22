@@ -116,3 +116,40 @@ Ball* SLL::GetBall(int index)
 	}
 	return iteration;
 }
+
+void SLL::drawAll(sf::RenderWindow &window)
+{
+	Ball* iter = Head;
+	while (iter != NULL){
+		iter->draw(window);
+		iter = iter->GetNext();
+	}
+}
+
+void SLL::updateAll()
+{
+	Ball* iter = Head;
+	while (iter != NULL) {
+		iter->update();
+		iter = iter->GetNext();
+	}
+}
+
+void SLL::resyncPosition(float xOffset, float yOffset, float ballRadius)
+{
+	int ballIndex = 10 - Size / 2;
+	int placeOffset = 0;
+	if (Size % 2 == 0) {
+		placeOffset = ballRadius;
+	}
+	Ball* iter = Head;
+	while (iter != NULL)
+	{
+		iter->setPositionIndex(ballIndex++);
+		float newPosOnWallX = xOffset + placeOffset + iter->getPositionIndex() * ballRadius * 2;
+		float newPosOnWallY = yOffset - ballRadius;
+		iter->moveTo(sf::Vector2f(newPosOnWallX, newPosOnWallY));
+		iter = iter->GetNext();
+	}
+
+}

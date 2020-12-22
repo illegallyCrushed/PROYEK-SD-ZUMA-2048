@@ -33,11 +33,11 @@ void Ball::moveTo(sf::Vector2f newposition)
 	this->newposition = newposition;
 }
 
-void Ball::update(float deltaTime)
+void Ball::update()
 {
 	circle.setPosition(circle.getPosition().x + (newposition.x - circle.getPosition().x) * speed, circle.getPosition().y + (newposition.y - circle.getPosition().y) * speed);
 	textnum.setPosition(textnum.getPosition().x + (newposition.x - textnum.getPosition().x) * speed, textnum.getPosition().y + (newposition.y - textnum.getPosition().y) * speed);
-	if (std::abs((newposition.x - circle.getPosition().x) < 1 && (newposition.y - circle.getPosition().y) < 1)) {
+	if (std::abs(newposition.x - circle.getPosition().x) < 1 && std::abs(newposition.y - circle.getPosition().y) < 1) {
 		circle.setPosition(newposition);
 		textnum.setPosition(newposition);
 	}

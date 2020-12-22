@@ -25,7 +25,7 @@ int main()
 	float ballStartY = WINDOW_HEIGHT / 6;
 	float ballRadius = 25;
 	float maxBall = 20;
-	float highestPower = 8; //nanti berubah
+	float highestPower = 2; //nanti berubah
 	float ballSpeed = 0.1;
 
 	float wallX = WINDOW_WIDTH / 2;
@@ -74,128 +74,67 @@ int main()
 		}
 
 
-		float mouseRelative = std::abs(mousePos.x - ballStartX);
-		float mouseLimit = (wallLength / 2.0 * ((mousePos.y - ballStartY) / (wallY - ballStartY)));
-		if (mousePos.y >= ballStartY && mousePos.y <= wallY && mouseRelative < mouseLimit) {
-
-			//!! HARUSE LINKED LIST BOLAE MANTEP	
-
-			//limit jadi cuma bisa nembak ke wall
-			if (mouseClicked) {
-				//lek nembak
-				int ballIndex = 0;
-				int placeOffset = 0;
-				float tempX = ballStartX + ((mousePos.x - ballStartX) * (wallY - ballStartY) / (mousePos.y - ballStartY)); //projeksi ke dinding
-				if (balls.GetSize() > 0) {
-					//kalo linkedlist gak kosong
-					if (tempX < balls.GetHead()->getPositionX()) {
-						//kalo nembaknya di paling kiri
-						ballIndex = 10 - std::ceil(balls.GetSize() / 2.0f);
-						newball->setPositionIndex(ballIndex);
-						for(int i = 0; i < balls.GetSize(); i++)
-						{
-							balls.GetBall(i)->setPositionIndex(++ballIndex);
-						}
-						balls.AddFront(newball);
-						if (balls.GetSize() % 2 == 0) {
-							//kalo genap biar center
-							placeOffset = ballRadius;
-						}
-					}
-					else if (tempX > balls.GetTail()->getPositionX())
-					{
-						//kalo nembaknya di paling kanan
-						ballIndex = 10 + std::ceil(balls.GetSize() / 2.0f);
-						newball->setPositionIndex(ballIndex);
-						ballIndex -= balls.GetSize();
-						for (int i = 0; i < balls.GetSize(); i++)
-						{
-							balls.GetBall(i)->setPositionIndex(ballIndex++);
-						}
-						balls.AddBack(newball);
-						if (balls.GetSize() % 2 == 0) {
-							//kalo genap biar center
-							placeOffset = -ballRadius;
-						}
-					}
-					else {
-						for (int i = 0; i < balls.GetSize() - 1; i++)
-						{
-							if (balls.GetBall(i)->getPositionX() < tempX && balls.GetBall(i + 1)->getPositionX() >= tempX) {
-								if (balls.GetBall(i)->getPositionIndex() < 10) {
-									std::cout << "left" << "\n";
-									//kalo dikirie tengah
-									balls.AddMiddle(i, newball);
-									ballIndex = 10 - std::ceil(balls.GetSize() / 2.0f);
-
-									for (int i = 0; i < balls.GetSize(); i++)
-									{
-										balls.GetBall(i)->setPositionIndex(++ballIndex);
-									}
-									if (balls.GetSize() % 2 == 0) {
-										//kalo genap biar center
-										placeOffset = -ballRadius;
-									}
-								}
-								else {
-									std::cout << "right" << "\n";
-									//kalo di kanan e tengah
-									balls.AddMiddle(i, newball);
-									ballIndex = 10 + balls.GetSize() / 2.0f + 1;
-									ballIndex -= balls.GetSize();
-									for (int i = 0; i < balls.GetSize(); i++)
-									{
-										balls.GetBall(i)->setPositionIndex(ballIndex++);
-									}
-									if (balls.GetSize() % 2 == 0) {
-										//kalo genap biar center
-										placeOffset = -ballRadius;
-									}
-								}
-								break;
-							}
-						}
+		
 
 
-					}
 
+		if (mouseClicked) {
+			//lek nembak
+			float xOffset = wallX - wallLength / 2.0f;
+			float yOffset = wallY - wallThickness / 2.0f;
+			float tempX = ballStartX + ((mousePos.x - ballStartX) * (wallY - ballStartY) / (mousePos.y - ballStartY)); //projeksi ke dinding
+			if (balls.GetSize() > 0) {
+				//kalo linkedlist gak kosong
+				if (tempX < balls.GetHead()->getPositionX()) {
+					//kalo nembaknya di paling kiri
+					balls.AddFront(newball);
 				}
-				else {
-					//bola pertama selalu di tengah
-					ballIndex = 10;
-					newball->setPositionIndex(ballIndex);
+				else if (tempX > balls.GetTail()->getPositionX())
+				{
+					//kalo nembaknya di paling kanan
 					balls.AddBack(newball);
 				}
-
-				for (int i = 0; i < balls.GetSize(); i++) //loop e buat draw, kudue loop linked list
-				{
-					cout << balls.GetBall(i)->getPositionIndex() << " ";
-					float newPosOnWallX = wallX - wallLength / 2.0f + placeOffset + balls.GetBall(i)->getPositionIndex() * ballRadius * 2;
-					float newPosOnWallY = wallY - ballRadius - wallThickness / 2.0f;
-					balls.GetBall(i)->moveTo(sf::Vector2f(newPosOnWallX, newPosOnWallY));
-
+				else {
+					int i = 0;
+					Ball* iter = balls.GetHead();
+					while (iter->GetNext() != NULL)
+					{
+						if (iter->getPositionX() < tempX && iter->GetNext()->getPositionX() >= tempX) {
+							balls.AddMiddle(i, newball);
+							break;
+						}
+						i++;
+						iter = iter->GetNext();
+					}
 				}
-				cout << "\n";
-
-				//proses nggabungno bola
-
-
-
-				if (balls.GetSize() == 21) {
-					cout << "gameover";
-					return 0;
-				}
-
-				newball = new Ball(font, sf::Vector2f(ballStartX, ballStartY), ballSpeed, ballRadius, highestPower); // buat bola baru
 			}
+			else {
+				balls.AddBack(newball);
+			}
+			balls.resyncPosition(xOffset, yOffset, ballRadius);
+
+			//proses nggabungno bola
+
+
+
+			if (balls.GetSize() == 21) {
+				cout << "gameover";
+				return 0;
+			}
+
+			newball = new Ball(font, sf::Vector2f(ballStartX, ballStartY), ballSpeed, ballRadius, highestPower); // buat bola baru
+		}
+
+		float mouseRelative = std::abs(mousePos.x - ballStartX);
+		float mouseLimit = (wallLength / 1.5 * ((mousePos.y - ballStartY) / (wallY - ballStartY)));
+		if (mousePos.y >= ballStartY && mouseRelative < mouseLimit) {
 			arrowPointer.update(mousePos);
 		}
-		for (int i = 0; i < balls.GetSize(); i++) //loop e buat draw, kudue loop linked list
-		{
-			balls.GetBall(i)->update(deltaTime);
-			balls.GetBall(i)->draw(window);
-		}
-		newball->update(deltaTime);
+
+
+		balls.updateAll();
+		balls.drawAll(window);
+		newball->update();
 		newball->draw(window);
 		arrowPointer.draw(window);
 		wall.draw(window);
