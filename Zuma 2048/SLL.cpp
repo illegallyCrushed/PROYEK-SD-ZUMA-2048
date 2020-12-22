@@ -159,11 +159,6 @@ void SLL::resyncPosition(float xOffset, float yOffset, float ballRadius)
 
 void SLL::CheckCombo(SLL& balls)
 {
-	/*Ball* iterator = balls.GetHead();
-
-	Ball* iteratordalam = iterator;
-	int counter = 0;
-	int countercombo = 0;*/
 	int indexiterator = 0;
 	bool deleted = false;
 
@@ -171,7 +166,6 @@ void SLL::CheckCombo(SLL& balls)
 		Ball* iterator = balls.GetHead();
 		while (iterator != NULL)
 		{
-
 			int currentcolor = iterator->GetColor();
 			int currentnumber = iterator->GetNumber();
 			int counter = 0;
@@ -184,6 +178,7 @@ void SLL::CheckCombo(SLL& balls)
 						for (int i = 0; i < 3; i++) {
 							balls.Delete(indexiterator);
 						}
+						balls.Edit(indexiterator, currentnumber * 2);
 						deleted = true;
 						break;
 					}
@@ -203,42 +198,19 @@ void SLL::CheckCombo(SLL& balls)
 			indexiterator++;
 
 		}
-
 	}
+}
 
+int SLL::CheckPowerNumber(SLL& balls)
+{
+	int max = 0;
+	Ball* iterator = balls.GetHead();
 
-
-
-	//	while (iterator != NULL) {
-	//		while (countercombo <= 4) {
-	//			if (counter == 3) {
-	//				/*balls.DeleteCombo(iterator->getPositionIndex(), iterator->getPositionIndex() + 2);*/
-
-	//				for (int i = 0; i < 3; i++) {
-	//					balls.Delete(indexiterator);
-	//				}
-
-	//				cout << "COMBOOOO!!!\n" << balls.GetSize() << "\n";
-	//			}
-	//			if (iteratordalam != NULL) {
-	//				if (iteratordalam->GetNext() != NULL) {
-	//					if (iteratordalam->GetColor() == iteratordalam->GetNext()->GetColor() && iteratordalam->GetNumber() == iteratordalam->GetNext()->GetNumber()) {
-	//						counter++;
-	//					}
-	//				}
-	//			}
-	//			else
-	//				break;
-	//			iteratordalam = iteratordalam->GetNext();
-	//			countercombo++;
-	//		}
-	//		countercombo = 0;
-	//		counter = 0;
-	//		iterator = iterator->GetNext();
-	//		indexiterator++;
-	//		iteratordalam = iterator;
-	//	}
-	//}
-
-
+	for (int i = 0; i < balls.GetSize(); i++) {
+		if (iterator->GetNumber() > max) {
+			max = iterator->GetNumber();
+		}
+	}
+	
+	return std::log2(max);
 }

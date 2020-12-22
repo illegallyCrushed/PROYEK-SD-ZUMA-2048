@@ -78,6 +78,14 @@ void Ball::SetNext(Ball *ball)
 void Ball::SetNumber(int n)
 {
 	number = n;
+	textnum.setString(std::to_string(number));
+	textnum.setCharacterSize(30);
+	textnum.setOrigin((textnum.getLocalBounds().width / 2.0f) + 2, (textnum.getLocalBounds().height / 2.0f) + 9.5);
+	if (number >= 1024) {
+		textnum.setCharacterSize(20);
+		textnum.setOrigin((textnum.getLocalBounds().width / 2.0f), (textnum.getLocalBounds().height / 2.0f) + 6.5);
+	}
+	textnum.setPosition(newposition);
 }
 
 int Ball::GetNumber()

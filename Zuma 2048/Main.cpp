@@ -117,6 +117,13 @@ int main()
 			balls.CheckCombo(balls);
 			balls.resyncPosition(xOffset, yOffset, ballRadius);
 
+			//check power number
+			if (balls.GetSize() > 0) {
+				highestPower = balls.CheckPowerNumber(balls) + 1;
+				cout << "\n" << highestPower << "\n";
+			}
+
+
 			if (balls.GetSize() == 21) {
 				cout << "gameover";
 				return 0;

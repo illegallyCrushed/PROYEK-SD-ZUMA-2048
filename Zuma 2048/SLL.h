@@ -25,5 +25,6 @@ public:
 	void updateAll();
 	void resyncPosition(float xOffset, float yOffset, float ballradius);
 	void CheckCombo(SLL& balls);
+	int CheckPowerNumber(SLL& balls);
 };
 
