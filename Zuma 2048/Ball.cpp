@@ -10,8 +10,11 @@ Ball::Ball(sf::Font& font, sf::Vector2f position, float radius, int powernumber)
 	this->position = position;
 	circle.setRadius(radius);
 	circle.setFillColor(colors[color]);
-	circle.setOrigin(circle.getRadius() / 2, circle.getRadius() / 2);
+	//circle.setOrigin(circle.getRadius() / 2, circle.getRadius() / 2);
 	circle.setPosition(position);
+	std::cout << "Radius " << circle.getRadius() << " " << circle.getRadius();
+	std::cout << "Origin " << circle.getOrigin().x << " " << circle.getOrigin().y;
+	std::cout << "Position " << circle.getPosition().x << " " << circle.getPosition().y;
 
 	textnum.setFont(font);
 	textnum.setString(std::to_string(number));
