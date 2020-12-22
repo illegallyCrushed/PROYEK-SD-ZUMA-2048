@@ -141,9 +141,9 @@ bool SLL::updateAll()
 	return allDone;
 }
 
-void SLL::resyncPosition(float xOffset, float yOffset, float ballRadius,int maxBall)
+void SLL::resyncPosition(float xOffset, float yOffset, float ballRadius, int maxBall)
 {
-	int ballIndex = maxBall/2 - Size / 2;
+	int ballIndex = maxBall / 2 - Size / 2;
 	int placeOffset = 0;
 	if (Size % 2 == 0) {
 		placeOffset = ballRadius;
@@ -214,6 +214,6 @@ int SLL::CheckPowerNumber(SLL& balls)
 			max = iterator->GetNumber();
 		}
 	}
-	
+
 	return std::log2(max);
 }

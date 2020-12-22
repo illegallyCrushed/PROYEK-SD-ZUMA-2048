@@ -72,7 +72,7 @@ Ball* Ball::GetNext()
 	return Next;
 }
 
-void Ball::SetNext(Ball *ball)
+void Ball::SetNext(Ball* ball)
 {
 	Next = ball;
 }

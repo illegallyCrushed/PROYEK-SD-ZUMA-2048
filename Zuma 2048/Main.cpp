@@ -5,14 +5,13 @@
 
 int main()
 {
-
 	srand(time(NULL));
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Zuma 2048", sf::Style::Titlebar | sf::Style::Close);
 	window.setFramerateLimit(60);
 	sf::Clock clock;
 	sf::Vector2i mousePos;
-	
-	SLL balls; //iki di linkedlist
+
+	SLL balls;
 	sf::Font font;
 	sf::Texture arrowtexture;
 	font.loadFromFile("Assets/Google Product Sans.ttf");
@@ -22,7 +21,7 @@ int main()
 	float ballStartY = WINDOW_HEIGHT / 6;
 	float ballRadius = 24;
 	float maxBall = 26;
-	float highestPower = 2; //nanti berubah
+	float highestPower = 2;
 	float ballSpeed = 0.2;
 
 	float wallX = WINDOW_WIDTH / 2;
@@ -41,7 +40,6 @@ int main()
 
 	Arrow arrowPointer(&arrowtexture, sf::Vector2f(1000, 1000), sf::Vector2f(ballStartX, ballStartY));
 	Wall wall(sf::Vector2f(wallLength, wallThickness), sf::Vector2f(wallX, wallY));
-
 
 	Ball* newball = new Ball(font, sf::Vector2f(ballStartX, ballStartY), ballSpeed, ballRadius, highestPower);
 
@@ -63,18 +61,16 @@ int main()
 					clickAllowed = false;
 				}
 			}
-
 		}
 
 		if (mouseClicked) {
 			stage1 = true;
-			
-			//lek nembak
+
 			float xOffset = wallX - wallLength / 2.0f;
 			float yOffset = wallY - wallThickness / 2.0f;
 			float tempX = ballStartX + ((mousePos.x - ballStartX) * (wallY - ballStartY) / (mousePos.y - ballStartY)); //projeksi ke dinding
 			if (balls.GetSize() > 0) {
-				//kalo linkedlist gak kosong
+				//kalo linkedlist tidak kosong
 				if (tempX < balls.GetHead()->getPositionX()) {
 					//kalo nembaknya di paling kiri
 					balls.AddFront(newball);
@@ -85,6 +81,7 @@ int main()
 					balls.AddBack(newball);
 				}
 				else {
+					//kalo nembaknya ditengah
 					int i = 0;
 					Ball* iter = balls.GetHead();
 					while (iter->GetNext() != NULL)
@@ -102,8 +99,8 @@ int main()
 				balls.AddBack(newball);
 			}
 			balls.resyncPosition(xOffset, yOffset, ballRadius, maxBall);
-			
-			if (balls.GetSize() == maxBall+1) {
+
+			if (balls.GetSize() == maxBall + 1) {
 				cout << "gameover";
 				system("pause");
 				return 0;
@@ -123,8 +120,9 @@ int main()
 			float xOffset = wallX - wallLength / 2.0f;
 			float yOffset = wallY - wallThickness / 2.0f;
 			bool available = balls.CheckCombo(balls);
-			//proses nggabungno bola
+			//proses penggabungan bola
 			balls.resyncPosition(xOffset, yOffset, ballRadius, maxBall);
+
 			//check power number
 			if (balls.GetSize() > 0) {
 				highestPower = balls.CheckPowerNumber(balls) + 1;
@@ -135,12 +133,11 @@ int main()
 				stage3 = true;
 			}
 			else {
-				//kalo gak nemu
+				//kalo tidak ketemu
 				stage2 = false;
 				stage3 = false;
 				stage4 = true;
 			}
-			
 		}
 
 		if (stage3) {
@@ -152,7 +149,7 @@ int main()
 		}
 
 		if (stage4) {
-			//gak nemu multiple combos, enable click
+			//tidak ketemu multiple combos, enable click
 			if (balls.updateAll()) {
 				stage1 = false;
 				stage2 = false;
@@ -162,21 +159,18 @@ int main()
 			}
 		}
 
-
 		float mouseRelative = std::abs(mousePos.x - ballStartX);
 		float mouseLimit = (wallLength / 1.5 * ((mousePos.y - ballStartY) / (wallY - ballStartY)));
 		if (mousePos.y >= ballStartY && mouseRelative < mouseLimit) {
 			arrowPointer.update(mousePos);
 		}
 
-
-			balls.drawAll(window);
-			newball->update();
-			newball->draw(window);
-			arrowPointer.draw(window);
-			wall.draw(window);
-			window.display();
-
+		balls.drawAll(window);
+		newball->update();
+		newball->draw(window);
+		arrowPointer.draw(window);
+		wall.draw(window);
+		window.display();
 	}
 	return 0;
 

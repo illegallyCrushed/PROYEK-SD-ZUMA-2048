@@ -4,15 +4,15 @@
 class Ball
 {
 public:
-	Ball(sf::Font &font, sf::Vector2f position, float speed, float radius, int powernumber);
+	Ball(sf::Font& font, sf::Vector2f position, float speed, float radius, int powernumber);
 	void moveTo(sf::Vector2f newposition);
 	bool update();
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow& window);
 	float getPositionX();
 	int getPositionIndex();
 	void setPositionIndex(int index);
-	Ball *GetNext();
-	void SetNext(Ball *ball);
+	Ball* GetNext();
+	void SetNext(Ball* ball);
 	void SetNumber(int n);
 	int GetNumber();
 	int GetColor();
