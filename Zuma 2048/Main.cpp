@@ -10,11 +10,8 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Zuma 2048", sf::Style::Titlebar | sf::Style::Close);
 	window.setFramerateLimit(60);
 	sf::Clock clock;
-	float deltaTime = 0;
 	sf::Vector2i mousePos;
-	bool mouseClicked = false;
-	bool clickAllowed = true;
-	float toggleClickTime = 0.0f;
+	
 	SLL balls; //iki di linkedlist
 	sf::Font font;
 	sf::Texture arrowtexture;
@@ -26,12 +23,21 @@ int main()
 	float ballRadius = 25;
 	float maxBall = 20;
 	float highestPower = 2; //nanti berubah
-	float ballSpeed = 0.1;
+	float ballSpeed = 0.2;
 
 	float wallX = WINDOW_WIDTH / 2;
 	float wallY = WINDOW_HEIGHT * 7 / 8;
 	float wallLength = maxBall * ballRadius * 2;
 	float wallThickness = 10;
+
+	float toggleClickTime = 0.0f;
+	float deltaTime = 0;
+	bool stage1 = false;
+	bool stage2 = false;
+	bool stage3 = false;
+	bool mouseClicked = false;
+	bool clickAllowed = true;
+
 
 
 	Arrow arrowPointer(&arrowtexture, sf::Vector2f(1000, 1000), sf::Vector2f(ballStartX, ballStartY));
@@ -79,6 +85,9 @@ int main()
 
 
 		if (mouseClicked) {
+			stage1 = false;
+			stage2 = false;
+			stage3 = false;
 			//lek nembak
 			float xOffset = wallX - wallLength / 2.0f;
 			float yOffset = wallY - wallThickness / 2.0f;
@@ -114,8 +123,10 @@ int main()
 			balls.resyncPosition(xOffset, yOffset, ballRadius);
 
 			//proses nggabungno bola
-			balls.CheckCombo(balls);
-			balls.resyncPosition(xOffset, yOffset, ballRadius);
+			if (stage1) {
+				balls.CheckCombo(balls);
+				balls.resyncPosition(xOffset, yOffset, ballRadius);
+			}
 
 			//check power number
 			if (balls.GetSize() > 0) {
@@ -136,6 +147,7 @@ int main()
 		float mouseLimit = (wallLength / 1.5 * ((mousePos.y - ballStartY) / (wallY - ballStartY)));
 		if (mousePos.y >= ballStartY && mouseRelative < mouseLimit) {
 			arrowPointer.update(mousePos);
+		}
 
 
 			balls.updateAll();
@@ -146,7 +158,6 @@ int main()
 			wall.draw(window);
 			window.display();
 
-		}
 	}
 	return 0;
 

@@ -33,14 +33,16 @@ void Ball::moveTo(sf::Vector2f newposition)
 	this->newposition = newposition;
 }
 
-void Ball::update()
+bool Ball::update()
 {
 	circle.setPosition(circle.getPosition().x + (newposition.x - circle.getPosition().x) * speed, circle.getPosition().y + (newposition.y - circle.getPosition().y) * speed);
 	textnum.setPosition(textnum.getPosition().x + (newposition.x - textnum.getPosition().x) * speed, textnum.getPosition().y + (newposition.y - textnum.getPosition().y) * speed);
 	if (std::abs(newposition.x - circle.getPosition().x) < 1 && std::abs(newposition.y - circle.getPosition().y) < 1) {
 		circle.setPosition(newposition);
 		textnum.setPosition(newposition);
+		return true;
 	}
+	return false;
 }
 
 
@@ -85,7 +87,7 @@ void Ball::SetNumber(int n)
 		textnum.setCharacterSize(20);
 		textnum.setOrigin((textnum.getLocalBounds().width / 2.0f), (textnum.getLocalBounds().height / 2.0f) + 6.5);
 	}
-	textnum.setPosition(newposition);
+	textnum.setPosition(circle.getPosition());
 }
 
 int Ball::GetNumber()

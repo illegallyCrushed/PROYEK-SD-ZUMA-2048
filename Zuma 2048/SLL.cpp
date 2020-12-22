@@ -130,13 +130,16 @@ void SLL::drawAll(sf::RenderWindow& window)
 	}
 }
 
-void SLL::updateAll()
+bool SLL::updateAll()
 {
+	bool allDone = true;
 	Ball* iter = Head;
 	while (iter != NULL) {
-		iter->update();
+		if (!iter->update())
+			allDone = false;
 		iter = iter->GetNext();
 	}
+	return allDone;
 }
 
 void SLL::resyncPosition(float xOffset, float yOffset, float ballRadius)

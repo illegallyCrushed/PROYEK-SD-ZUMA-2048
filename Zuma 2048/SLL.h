@@ -22,7 +22,7 @@ public:
 	void DeleteCombo(int start, int end);
 	Ball* GetBall(int index);
 	void drawAll(sf::RenderWindow& window);
-	void updateAll();
+	bool updateAll();
 	void resyncPosition(float xOffset, float yOffset, float ballradius);
 	void CheckCombo(SLL& balls);
 	int CheckPowerNumber(SLL& balls);
