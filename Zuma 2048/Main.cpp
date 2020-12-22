@@ -65,6 +65,7 @@ int main()
 			ball.update(deltaTime);
 			ball.draw(window);
 		}
+		arrowPointer.update(mousePos);
 		arrowPointer.draw(window);
 		window.display();
 
