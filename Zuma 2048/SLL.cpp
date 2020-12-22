@@ -21,15 +21,15 @@ int SLL::GetSize()
 	return Size;
 }
 
-void SLL::AddFront(Ball *ball)
+void SLL::AddFront(Ball* ball)
 {
 	Ball* temp = ball;
-    temp->SetNext(Head);
-    Head = temp;
+	temp->SetNext(Head);
+	Head = temp;
 	Size++;
 }
 
-void SLL::AddMiddle(int index, Ball *ball)
+void SLL::AddMiddle(int index, Ball* ball)
 {
 	Ball* temp = ball;
 	temp->SetNext(NULL);
@@ -44,7 +44,7 @@ void SLL::AddMiddle(int index, Ball *ball)
 	Size++;
 }
 
-void SLL::AddBack(Ball *ball)
+void SLL::AddBack(Ball* ball)
 {
 	Ball* temp = ball;
 	temp->SetNext(NULL);
@@ -68,23 +68,25 @@ void SLL::Delete(int index)
 	Ball* temp = Head;
 
 	if (index == 0) {
-		temp = temp->GetNext();
-		Head = temp;
+		Head = temp->GetNext();
+		delete temp;
 	}
 	else if (index == Size - 1) {
-		for (int i = 0; i < Size; i++)
+		for (int i = 0; i < Size - 1; i++)
 			temp = temp->GetNext();
-
+		Ball* temp2 = temp->GetNext();
 		temp->SetNext(NULL);
+		Tail = temp;
+		delete temp2;
 	}
 	else {
 		for (int i = 0; i < index - 1; i++)
 			temp = temp->GetNext();
-
-		temp->SetNext(temp->GetNext()->GetNext());
+		Ball* temp2 = temp->GetNext();
+		temp->SetNext(temp2->GetNext());
+		delete temp2;
 	}
-	delete temp;
-	Size -= 1;
+	Size--;
 	cout << Size;
 }
 
@@ -119,10 +121,10 @@ Ball* SLL::GetBall(int index)
 	return iteration;
 }
 
-void SLL::drawAll(sf::RenderWindow &window)
+void SLL::drawAll(sf::RenderWindow& window)
 {
 	Ball* iter = Head;
-	while (iter != NULL){
+	while (iter != NULL) {
 		iter->draw(window);
 		iter = iter->GetNext();
 	}
@@ -157,42 +159,86 @@ void SLL::resyncPosition(float xOffset, float yOffset, float ballRadius)
 
 void SLL::CheckCombo(SLL& balls)
 {
-	Ball* iterator = balls.GetHead();
+	/*Ball* iterator = balls.GetHead();
+
 	Ball* iteratordalam = iterator;
 	int counter = 0;
-	int countercombo = 0;
+	int countercombo = 0;*/
 	int indexiterator = 0;
+	bool deleted = false;
 
 	if (balls.GetSize() >= 4) {
-		while (iterator->GetNext() != NULL) {
-			while (countercombo <= 4) {
-				if (counter == 3) {
-					/*balls.DeleteCombo(iterator->getPositionIndex(), iterator->getPositionIndex() + 2);*/
+		Ball* iterator = balls.GetHead();
+		while (iterator != NULL)
+		{
 
-					for (int i = 0; i < 3; i++) {
-						balls.Delete(indexiterator);
-					}
-
-					cout << "COMBOOOO!!!\n" << balls.GetSize() << "\n";
-				}
-				if (iteratordalam->GetNext() == NULL) {
-					break;
-				}
-				if (iteratordalam->GetColor() == iteratordalam->GetNext()->GetColor() && iteratordalam->GetNumber() == iteratordalam->GetNext()->GetNumber()) {
+			int currentcolor = iterator->GetColor();
+			int currentnumber = iterator->GetNumber();
+			int counter = 0;
+			Ball* iterator2 = iterator;
+			while (iterator2 != NULL)
+			{
+				if (currentcolor == iterator2->GetColor() && currentnumber == iterator2->GetNumber()) {
 					counter++;
+					if (counter == 4) {
+						for (int i = 0; i < 3; i++) {
+							balls.Delete(indexiterator);
+						}
+						deleted = true;
+						break;
+					}
 				}
-				else
+				else {
 					break;
-				iteratordalam = iteratordalam->GetNext();
-				countercombo++;
+				}
+				if (iterator2->GetNext() == NULL) {
+					break;
+				}
+				iterator2 = iterator2->GetNext();
 			}
-			countercombo = 0;
-			counter = 0;
+			if (deleted) {
+				break;
+			}
 			iterator = iterator->GetNext();
 			indexiterator++;
-			iteratordalam = iterator;
+
 		}
+
 	}
 
-	
+
+
+
+	//	while (iterator != NULL) {
+	//		while (countercombo <= 4) {
+	//			if (counter == 3) {
+	//				/*balls.DeleteCombo(iterator->getPositionIndex(), iterator->getPositionIndex() + 2);*/
+
+	//				for (int i = 0; i < 3; i++) {
+	//					balls.Delete(indexiterator);
+	//				}
+
+	//				cout << "COMBOOOO!!!\n" << balls.GetSize() << "\n";
+	//			}
+	//			if (iteratordalam != NULL) {
+	//				if (iteratordalam->GetNext() != NULL) {
+	//					if (iteratordalam->GetColor() == iteratordalam->GetNext()->GetColor() && iteratordalam->GetNumber() == iteratordalam->GetNext()->GetNumber()) {
+	//						counter++;
+	//					}
+	//				}
+	//			}
+	//			else
+	//				break;
+	//			iteratordalam = iteratordalam->GetNext();
+	//			countercombo++;
+	//		}
+	//		countercombo = 0;
+	//		counter = 0;
+	//		iterator = iterator->GetNext();
+	//		indexiterator++;
+	//		iteratordalam = iterator;
+	//	}
+	//}
+
+
 }

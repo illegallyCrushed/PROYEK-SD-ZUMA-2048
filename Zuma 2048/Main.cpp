@@ -115,6 +115,7 @@ int main()
 
 			//proses nggabungno bola
 			balls.CheckCombo(balls);
+			balls.resyncPosition(xOffset, yOffset, ballRadius);
 
 			if (balls.GetSize() == 21) {
 				cout << "gameover";
