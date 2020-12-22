@@ -78,13 +78,14 @@ void SLL::Delete(int index)
 		temp->SetNext(NULL);
 	}
 	else {
-		for (int i = 0; i < index; i++)
+		for (int i = 0; i < index - 1; i++)
 			temp = temp->GetNext();
 
 		temp->SetNext(temp->GetNext()->GetNext());
 	}
 	delete temp;
-	Size--;
+	Size -= 1;
+	cout << Size;
 }
 
 void SLL::Edit(int index, int n)
@@ -160,23 +161,35 @@ void SLL::CheckCombo(SLL& balls)
 	Ball* iteratordalam = iterator;
 	int counter = 0;
 	int countercombo = 0;
+	int indexiterator = 0;
 
 	if (balls.GetSize() >= 4) {
 		while (iterator->GetNext() != NULL) {
-			while (iteratordalam->GetNext() != NULL && countercombo <= 4) {
-				if(iteratordalam->GetColor() == iteratordalam->GetNext()->GetColor() && iteratordalam->GetNumber() == iteratordalam->GetNext()->GetNumber()) {
+			while (countercombo <= 4) {
+				if (counter == 3) {
+					/*balls.DeleteCombo(iterator->getPositionIndex(), iterator->getPositionIndex() + 2);*/
+
+					for (int i = 0; i < 3; i++) {
+						balls.Delete(indexiterator);
+					}
+
+					cout << "COMBOOOO!!!\n" << balls.GetSize() << "\n";
+				}
+				if (iteratordalam->GetNext() == NULL) {
+					break;
+				}
+				if (iteratordalam->GetColor() == iteratordalam->GetNext()->GetColor() && iteratordalam->GetNumber() == iteratordalam->GetNext()->GetNumber()) {
 					counter++;
 				}
-				if (counter == 4) {
-					balls.DeleteCombo(iterator->getPositionIndex(), iterator->getPositionIndex() + 2);
-					cout << "COMBOOOO!!!\n";
-				}
+				else
+					break;
 				iteratordalam = iteratordalam->GetNext();
 				countercombo++;
 			}
 			countercombo = 0;
 			counter = 0;
 			iterator = iterator->GetNext();
+			indexiterator++;
 			iteratordalam = iterator;
 		}
 	}
