@@ -107,6 +107,7 @@ int main()
 						iter = iter->GetNext();
 					}
 				}
+<<<<<<< Updated upstream
 			}
 			else {
 				balls.AddBack(newball);
@@ -116,6 +117,11 @@ int main()
 			//proses nggabungno bola
 
 
+=======
+				cout << "\n";
+
+				//
+>>>>>>> Stashed changes
 
 			if (balls.GetSize() == 21) {
 				cout << "gameover";
@@ -125,10 +131,27 @@ int main()
 			newball = new Ball(font, sf::Vector2f(ballStartX, ballStartY), ballSpeed, ballRadius, highestPower); // buat bola baru
 		}
 
+<<<<<<< Updated upstream
 		float mouseRelative = std::abs(mousePos.x - ballStartX);
 		float mouseLimit = (wallLength / 1.5 * ((mousePos.y - ballStartY) / (wallY - ballStartY)));
 		if (mousePos.y >= ballStartY && mouseRelative < mouseLimit) {
 			arrowPointer.update(mousePos);
+=======
+		//proses nggabungno bola
+		if (balls.GetSize() > 3) {
+			balls.CheckCombo(balls);
+		}
+
+		if (balls.GetSize() == 21) {
+			cout << "gameover";
+			return 0;
+		}
+
+		for (int i = 0; i < balls.GetSize(); i++) //loop e buat draw, kudue loop linked list
+		{
+			balls.GetBall(i)->update(deltaTime);
+			balls.GetBall(i)->draw(window);
+>>>>>>> Stashed changes
 		}
 
 

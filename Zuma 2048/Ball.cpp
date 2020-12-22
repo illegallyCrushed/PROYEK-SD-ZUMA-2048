@@ -84,3 +84,8 @@ int Ball::GetNumber()
 {
 	return number;
 }
+
+int Ball::GetColor()
+{
+	return color;
+}

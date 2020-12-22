@@ -83,6 +83,7 @@ void SLL::Delete(int index)
 
 		temp->SetNext(temp->GetNext()->GetNext());
 	}
+	delete temp;
 	Size--;
 }
 
@@ -117,6 +118,7 @@ Ball* SLL::GetBall(int index)
 	return iteration;
 }
 
+<<<<<<< Updated upstream
 void SLL::drawAll(sf::RenderWindow &window)
 {
 	Ball* iter = Head;
@@ -152,4 +154,34 @@ void SLL::resyncPosition(float xOffset, float yOffset, float ballRadius)
 		iter = iter->GetNext();
 	}
 
+=======
+void SLL::CheckCombo(SLL& balls)
+{
+	Ball* iterator = balls.GetHead();
+	Ball* iteratordalam = iterator;
+	int counter = 0;
+	int countercombo = 0;
+
+	if (balls.GetSize() >= 4) {
+		while (iterator->GetNext() != NULL) {
+			while (iteratordalam->GetNext() != NULL && countercombo <= 4) {
+				if(iteratordalam->GetColor() == iteratordalam->GetNext()->GetColor() && iteratordalam->GetNumber() == iteratordalam->GetNext()->GetNumber()) {
+					counter++;
+				}
+				if (counter == 4) {
+					balls.DeleteCombo(iterator->getPositionIndex(), iterator->getPositionIndex() + 2);
+					cout << "COMBOOOO!!!\n";
+				}
+				iteratordalam = iteratordalam->GetNext();
+				countercombo++;
+			}
+			countercombo = 0;
+			counter = 0;
+			iterator = iterator->GetNext();
+			iteratordalam = iterator;
+		}
+	}
+
+	
+>>>>>>> Stashed changes
 }

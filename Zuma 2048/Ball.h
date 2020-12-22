@@ -15,6 +15,7 @@ public:
 	void SetNext(Ball *ball);
 	void SetNumber(int n);
 	int GetNumber();
+	int GetColor();
 
 private:
 	sf::Vector2f newposition;

@@ -21,9 +21,13 @@ public:
 	void Edit(int index, int n);
 	void DeleteCombo(int start, int end);
 	Ball* GetBall(int index);
+<<<<<<< Updated upstream
 	void drawAll(sf::RenderWindow& window);
 	void updateAll();
 	void resyncPosition(float xOffset, float yOffset, float ballradius);
 
+=======
+	void CheckCombo(SLL& balls);
+>>>>>>> Stashed changes
 };
 
