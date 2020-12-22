@@ -23,8 +23,8 @@ public:
 	Ball* GetBall(int index);
 	void drawAll(sf::RenderWindow& window);
 	bool updateAll();
-	void resyncPosition(float xOffset, float yOffset, float ballradius);
-	void CheckCombo(SLL& balls);
+	void resyncPosition(float xOffset, float yOffset, float ballradius, int maxBall);
+	bool CheckCombo(SLL& balls);
 	int CheckPowerNumber(SLL& balls);
 };
 

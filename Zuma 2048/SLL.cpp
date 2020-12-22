@@ -87,7 +87,6 @@ void SLL::Delete(int index)
 		delete temp2;
 	}
 	Size--;
-	cout << Size;
 }
 
 void SLL::Edit(int index, int n)
@@ -142,9 +141,9 @@ bool SLL::updateAll()
 	return allDone;
 }
 
-void SLL::resyncPosition(float xOffset, float yOffset, float ballRadius)
+void SLL::resyncPosition(float xOffset, float yOffset, float ballRadius,int maxBall)
 {
-	int ballIndex = 10 - Size / 2;
+	int ballIndex = maxBall/2 - Size / 2;
 	int placeOffset = 0;
 	if (Size % 2 == 0) {
 		placeOffset = ballRadius;
@@ -160,7 +159,7 @@ void SLL::resyncPosition(float xOffset, float yOffset, float ballRadius)
 	}
 }
 
-void SLL::CheckCombo(SLL& balls)
+bool SLL::CheckCombo(SLL& balls)
 {
 	int indexiterator = 0;
 	bool deleted = false;
@@ -202,6 +201,7 @@ void SLL::CheckCombo(SLL& balls)
 
 		}
 	}
+	return deleted;
 }
 
 int SLL::CheckPowerNumber(SLL& balls)
