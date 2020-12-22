@@ -118,7 +118,6 @@ Ball* SLL::GetBall(int index)
 	return iteration;
 }
 
-<<<<<<< Updated upstream
 void SLL::drawAll(sf::RenderWindow &window)
 {
 	Ball* iter = Head;
@@ -153,8 +152,8 @@ void SLL::resyncPosition(float xOffset, float yOffset, float ballRadius)
 		iter->moveTo(sf::Vector2f(newPosOnWallX, newPosOnWallY));
 		iter = iter->GetNext();
 	}
+}
 
-=======
 void SLL::CheckCombo(SLL& balls)
 {
 	Ball* iterator = balls.GetHead();
@@ -183,5 +182,4 @@ void SLL::CheckCombo(SLL& balls)
 	}
 
 	
->>>>>>> Stashed changes
 }
