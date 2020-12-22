@@ -1,6 +1,6 @@
-#pragma once
-#include "includes.h"
+#include <string>
 using namespace std;
+#pragma once
 
 class Node {
 private:
