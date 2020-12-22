@@ -1,6 +1,6 @@
-#include <string>
-using namespace std;
 #pragma once
+#include "includes.h"
+using namespace std;
 
 class Node {
 private:
