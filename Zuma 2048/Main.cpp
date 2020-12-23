@@ -1,4 +1,4 @@
-#include "Ball.h"
+﻿#include "Ball.h"
 #include "SLL.h"
 #include "Arrow.h"
 #include "Wall.h"
@@ -101,7 +101,7 @@ int main()
 			balls.resyncPosition(xOffset, yOffset, ballRadius, maxBall);
 
 			if (balls.GetSize() == maxBall + 1) {
-				cout << "gameover";
+				cout << "Gameover\n";
 				system("pause");
 				return 0;
 			}
@@ -124,9 +124,7 @@ int main()
 			balls.resyncPosition(xOffset, yOffset, ballRadius, maxBall);
 
 			//check power number
-			if (balls.GetSize() > 0) {
-				highestPower = balls.CheckPowerNumber(balls) + 1;
-			}
+			
 			if (available) {
 				//buat multiple combos
 				stage2 = false;
@@ -157,6 +155,11 @@ int main()
 				stage4 = false;
 				clickAllowed = true;
 			}
+		}
+
+		if (balls.GetSize() > 0) {
+			highestPower = balls.CheckPowerNumber(balls) + 1;
+			cout << highestPower<<"\n";
 		}
 
 		float mouseRelative = std::abs(mousePos.x - ballStartX);

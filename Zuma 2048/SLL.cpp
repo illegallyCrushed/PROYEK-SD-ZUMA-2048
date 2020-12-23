@@ -208,12 +208,14 @@ int SLL::CheckPowerNumber(SLL& balls)
 {
 	int max = 0;
 	Ball* iterator = balls.GetHead();
-
-	for (int i = 0; i < balls.GetSize(); i++) {
+	while (iterator != NULL) {
 		if (iterator->GetNumber() > max) {
 			max = iterator->GetNumber();
 		}
+		if (iterator->GetNext() == NULL) {
+			break;
+		}
+		iterator = iterator->GetNext();
 	}
-
 	return std::log2(max);
 }
