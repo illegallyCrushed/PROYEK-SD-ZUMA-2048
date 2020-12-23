@@ -100,7 +100,7 @@ int main()
 			}
 			balls.resyncPosition(xOffset, yOffset, ballRadius, maxBall);
 
-			
+
 
 			newball = new Ball(font, sf::Vector2f(ballStartX, ballStartY), ballSpeed, ballRadius, highestPower); // buat bola baru
 		}
@@ -119,8 +119,7 @@ int main()
 			//proses penggabungan bola
 			balls.resyncPosition(xOffset, yOffset, ballRadius, maxBall);
 
-			//check power number
-			
+
 			if (available) {
 				//buat multiple combos
 				stage2 = false;
@@ -145,7 +144,13 @@ int main()
 		if (stage4) {
 			//tidak ketemu multiple combos, ngecek kkalah enable click
 			if (balls.GetSize() == maxBall + 1) {
-				cout << "Gameover\n";
+				cout << "  ____                         ___                 \n";
+				cout << " / ___| __ _ _ __ ___   ___   / _ \\__   _____ _ __ \n";
+				cout << "| |  _ / _` | '_ ` _ \\ / _ \\ | | | \\ \\ / / _ \\ '__|\n";
+				cout << "| |_| | (_| | | | | | |  __/ | |_| |\\ V /  __/ |   \n";
+				cout << " \\____|\\__,_|_| |_| |_|\\___|  \\___/  \\_/ \\___|_|   \n";
+				cout << "Score : " << pow(2, highestPower) << "\n";
+
 				system("pause");
 				return 0;
 			}
@@ -159,6 +164,7 @@ int main()
 		}
 
 		if (balls.GetSize() > 0 && balls.CheckPowerNumber(balls) >= 2) {
+			//check power number
 			highestPower = balls.CheckPowerNumber(balls);
 		}
 
