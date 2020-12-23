@@ -159,7 +159,6 @@ int main()
 
 		if (balls.GetSize() > 0) {
 			highestPower = balls.CheckPowerNumber(balls) + 1;
-			cout << highestPower<<"\n";
 		}
 
 		float mouseRelative = std::abs(mousePos.x - ballStartX);
