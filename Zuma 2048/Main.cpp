@@ -100,11 +100,7 @@ int main()
 			}
 			balls.resyncPosition(xOffset, yOffset, ballRadius, maxBall);
 
-			if (balls.GetSize() == maxBall + 1) {
-				cout << "Gameover\n";
-				system("pause");
-				return 0;
-			}
+			
 
 			newball = new Ball(font, sf::Vector2f(ballStartX, ballStartY), ballSpeed, ballRadius, highestPower); // buat bola baru
 		}
@@ -147,7 +143,12 @@ int main()
 		}
 
 		if (stage4) {
-			//tidak ketemu multiple combos, enable click
+			//tidak ketemu multiple combos, ngecek kkalah enable click
+			if (balls.GetSize() == maxBall + 1) {
+				cout << "Gameover\n";
+				system("pause");
+				return 0;
+			}
 			if (balls.updateAll()) {
 				stage1 = false;
 				stage2 = false;
@@ -157,8 +158,8 @@ int main()
 			}
 		}
 
-		if (balls.GetSize() > 0) {
-			highestPower = balls.CheckPowerNumber(balls) + 1;
+		if (balls.GetSize() > 0 && balls.CheckPowerNumber(balls) >= 2) {
+			highestPower = balls.CheckPowerNumber(balls);
 		}
 
 		float mouseRelative = std::abs(mousePos.x - ballStartX);
