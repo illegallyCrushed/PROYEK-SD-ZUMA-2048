@@ -2,7 +2,7 @@
 
 Ball::Ball(sf::Font& font, sf::Vector2f position, float speed, float radius, int powernumber)
 {
-	sf::Color colors[4] = { sf::Color::Red, sf::Color::Green, sf::Color::Cyan, sf::Color::Magenta };
+	sf::Color colors[4] = { sf::Color::Red, sf::Color::Green, sf::Color::Cyan, sf::Color::Yellow };
 
 	color = rand() % 4;
 	power = (1 + (rand() % (powernumber - 1)));
