@@ -176,28 +176,14 @@ bool SLL::CheckCombo(SLL& balls)
 			{
 				if (currentcolor == iterator2->GetColor() && currentnumber == iterator2->GetNumber()) {
 					counter++;
-					if (currentcolor == 1 || currentcolor == 2) {
-						if (counter == 2) {
-							for (int i = 0; i < 1; i++) {
-								balls.Delete(indexiterator);
-							}
-							balls.Edit(indexiterator, currentnumber * 2);
-							deleted = true;
-							break;
+					if (counter == 4) {
+						for (int i = 0; i < 3; i++) {
+							balls.Delete(indexiterator);
 						}
+						balls.Edit(indexiterator, currentnumber * 2);
+						deleted = true;
+						break;
 					}
-					else {
-
-						if (counter == 4) {
-							for (int i = 0; i < 3; i++) {
-								balls.Delete(indexiterator);
-							}
-							balls.Edit(indexiterator, currentnumber * 2);
-							deleted = true;
-							break;
-						}
-					}
-
 				}
 				else {
 					break;
